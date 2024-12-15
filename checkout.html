@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thank You for Your Purchase</title>
+    <link rel="icon" href="../img/logo2.webp" type="image/icon">
+    <link rel="stylesheet" href="../style.css">
+
+</head>
+
+<body>
+    <!-- Sidebar navigation -->
+    <div id="sidebar">
+        <div id="treelines" onclick="show()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Logo and navigation links -->
+        <div>
+            <ul>
+                <div class="user">
+                    <img src="../img/logo2.webp" height="100" />
+                </div>
+                <li style="text-align: center; font-family:Futura Lt BT Light,Arial, Helvetica, sans-serif; color: #DED0B6;"><a href="home.html"><b>HOME</b></a></li>
+                <li style="text-align: center; font-family:Futura Lt BT Light,Arial, Helvetica, sans-serif; color: #DED0B6;"><a href="MENU/platter.html"><b>MENU</b></a></li>
+                <li style="text-align: center; font-family:Futura Lt BT Light,Arial, Helvetica, sans-serif; color: #DED0B6;"><a href="about.html"><b>ABOUT</b></a></li>
+                <li style="text-align: center; font-family:Futura Lt BT Light,Arial, Helvetica, sans-serif; color: #DED0B6;"><a href="contact.html"><b>CONTACT</b></a></li>
+                <li style="text-align: center; font-family:Futura Lt BT Light,Arial, Helvetica, sans-serif; color: #DED0B6;"><a href="index.html" class="logoutButton"><b>LOGOUT</b></a></li>
+                <li style="text-align: center; font-family:Futura Lt BT Light,Arial, Helvetica, sans-serif; color: #DED0B6;"><a href="MENU/order.html"><b>ORDER</b></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <main class="menuMain">
+        <div class="menuTitle">
+            <h1>Thank You for Your Purchase!</h1>
+            <p>Your order has been successfully placed. We will process it shortly.</p>
+            <p>We appreciate your business!</p>
+        </div>
+    </main>
+
+    <script>
+        // Function to toggle the sidebar
+        function show() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('treelines').classList.toggle('activebtn');
+        }
+    </script>
+</body>
+
+</html>

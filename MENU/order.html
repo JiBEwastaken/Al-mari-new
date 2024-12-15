@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Order Summary</title>
+    <link rel="icon" href="../img/logo2.webp" type="image/icon">
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+
+<body>
+    <!-- Sidebar navigation -->
+    <div id="sidebar">
+        <div id="treelines" onclick="show()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Logo and navigation links -->
+        <div>
+            <ul>
+                <div class="user">
+                    <img src="../img/logo2.webp" height="100" />
+                </div>
+                <li style="text-align: center;"><a href="../index.html"><b>HOME</b></a></li>
+                <li style="text-align: center;"><a href="../MENU/platter.html"><b>MENU</b></a></li>
+                <li style="text-align: center;"><a href="../about.html"><b>ABOUT</b></a></li>
+                <li style="text-align: center;"><a href="../contact.html"><b>CONTACT</b></a></li>
+                <li style="text-align: center;"><a href="../login.html" class="logoutButton"><b>LOGOUT</b></a></li>
+                <li style="text-align: center;"><a href="../MENU/order.html"><b>ORDER</b></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <main class="menuMain">
+        <div class="menuTitle">
+            <h1>Order Summary</h1>
+            <p>Here are the items you have selected:</p>
+        </div>
+
+        <div class="order-container">
+            <div id="orderList" class="order-list">
+                <!-- Order items will be dynamically populated here -->
+            </div>
+
+            <div id="orderSummary" class="order-summary">
+                <div id="totalPrice">
+                    <h2>Total: ₱<span id="totalAmount">0</span></h2>
+                </div>
+                <div id="checkout">
+                    <button id="checkoutButton">Proceed to Checkout</button>
+                </div>
+                <form id="customerDetails" class="customer-details">
+                    <label for="customerName">Name:</label>
+                    <input type="text" id="customerName" name="customerName" placeholder="Enter your name" required>
+            
+                    <label for="customerAddress">Address:</label>
+                    <textarea id="customerAddress" name="customerAddress" placeholder="Enter your address" required></textarea>
+            
+                    <label for="customerPhone">Phone Number:</label>
+                    <input type="tel" id="customerPhone" name="customerPhone" placeholder="Enter your phone number" required>
+                </form>
+            </div>
+            
+        </div>
+    </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Retrieve selected items from localStorage
+            let itemList = JSON.parse(localStorage.getItem('selectedItems')) || [];
+            let total = 0;
+
+            const orderList = document.getElementById('orderList');
+            const totalAmount = document.getElementById('totalAmount');
+
+            // Function to update the total price
+            function updateTotal() {
+                total = itemList.reduce((sum, item) => sum + parseFloat(item.price), 0);
+                totalAmount.textContent = total.toFixed(2);
+            }
+
+            // Function to remove an item
+            function removeItem(index) {
+                itemList.splice(index, 1); // Remove the item from the array
+                localStorage.setItem('selectedItems', JSON.stringify(itemList)); // Update localStorage
+                renderOrderList(); // Re-render the list
+                updateTotal(); // Update the total
+            }
+
+            // Function to render the order list
+            function renderOrderList() {
+                orderList.innerHTML = ""; // Clear the current list
+                itemList.forEach((item, index) => {
+                    let listItem = document.createElement('div');
+                    listItem.classList.add('order-card');
+                    listItem.innerHTML = `
+                        <div class="card">
+                            <img src="${item.image}" height="150" alt="${item.name}">
+                            <div class="card-content">
+                                <h2>${item.name}</h2>
+                                <p>Price: ₱${item.price}</p>
+                                <button class="removeButton" onclick="removeItem(${index})">Remove</button>
+                            </div>
+                        </div>
+                    `;
+                    orderList.appendChild(listItem);
+                });
+            }
+
+            // Make the removeItem function available globally
+            window.removeItem = removeItem;
+
+            // Render the initial order list
+            renderOrderList();
+
+            // Update total price on load
+            updateTotal();
+
+            // Proceed to checkout (for now just clear the items)
+            document.getElementById('checkoutButton').addEventListener('click', function () {
+                if (itemList.length > 0) {
+                    alert("Proceeding to checkout...");
+                    localStorage.removeItem('selectedItems'); // Clear the cart after checkout
+                    location.href = "../checkout.html"; // Redirect to a checkout page (create a checkout page if needed)
+                } else {
+                    alert("Your cart is empty!");
+                }
+            });
+        });
+
+        // Function to toggle the sidebar
+        function show() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('treelines').classList.toggle('activebtn');
+        }
+    </script>
+</body>
+
+</html>
